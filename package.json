@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
-  , "start:render": "vite preview --port 4173 --host"
+    "preview": "vite preview",
+    "start:render": "npx serve -s dist -l 4173"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
