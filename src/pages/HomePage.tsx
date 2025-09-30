@@ -2,7 +2,21 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Car, Package, Code2, Factory, ArrowRight, CheckCircle, Sparkles, Zap, Star } from 'lucide-react';
+import {
+  Car,
+  Package,
+  Code2,
+  Factory,
+  ArrowRight,
+  CheckCircle,
+  Sparkles,
+  Zap,
+  Star,
+  FolderTree,
+  Layers,
+  Files,
+  ThermometerSun,
+} from 'lucide-react';
 import { useVehiculos } from '@/hooks/useVehiculos';
 import { useActivos } from '@/hooks/useActivos';
 
@@ -30,9 +44,10 @@ export function HomePage() {
             con Patrones de Diseño
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Implementación completa de los patrones <span className="font-semibold text-blue-600">Builder</span> y{' '}
-            <span className="font-semibold text-purple-600">Factory</span> usando NestJS, 
-            Prisma, SQLite y React con TypeScript.
+            Implementación completa de los patrones <span className="font-semibold text-blue-600">Builder</span>,{' '}
+            <span className="font-semibold text-purple-600">Factory</span>,{' '}
+            <span className="font-semibold text-amber-600">Composite</span> y{' '}
+            <span className="font-semibold text-sky-600">Adapter</span> usando NestJS, Prisma, SQLite y React con TypeScript.
           </p>
           <div className="flex justify-center space-x-4 pt-4">
             <Badge variant="secondary" className="px-4 py-2 text-sm">
@@ -47,7 +62,7 @@ export function HomePage() {
         </div>
 
         {/* Pattern Cards */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+  <div className="grid gap-8 max-w-6xl mx-auto md:grid-cols-2 xl:grid-cols-4">
           {/* Builder Pattern Card */}
           <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-2 border-blue-100 hover:border-blue-300">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-bl-full opacity-10"></div>
@@ -179,6 +194,112 @@ export function HomePage() {
               </Button>
             </CardContent>
           </Card>
+
+          {/* Composite Pattern Card */}
+          <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-2 border-amber-100 hover:border-amber-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400 to-orange-500 rounded-bl-full opacity-10"></div>
+            <CardHeader className="relative">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl shadow-lg">
+                    <FolderTree className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl font-bold text-gray-800">Sistema de Archivos</CardTitle>
+                    <Badge variant="secondary" className="mt-2 bg-amber-100 text-amber-700 hover:bg-amber-200">
+                      <Layers className="w-4 h-4 mr-1" />
+                      Composite Pattern
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardDescription className="px-6 text-gray-600 text-base leading-relaxed">
+              Jerarquía de carpetas y archivos (PDF, DOCX, XLSX) con cálculo automático del tamaño agregado.
+            </CardDescription>
+            <CardContent className="space-y-6 pt-4">
+              <div className="space-y-3">
+                <h4 className="font-semibold text-gray-800 flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  Características destacadas:
+                </h4>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center bg-amber-50 p-2 rounded-lg">
+                    <Files className="w-4 h-4 text-amber-500 mr-2" />
+                    Visualización jerárquica con expansión recursiva
+                  </div>
+                  <div className="flex items-center bg-amber-50 p-2 rounded-lg">
+                    <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                    Estadísticas agregadas (tamaño, carpetas, archivos)
+                  </div>
+                  <div className="flex items-center bg-amber-50 p-2 rounded-lg">
+                    <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
+                    Árbol sincronizado con NestJS + Composite Pattern
+                  </div>
+                </div>
+              </div>
+
+              <Button asChild className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                <Link to="/filesystem" className="flex items-center justify-center">
+                  Explorar Sistema de Archivos
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Adapter Pattern Card */}
+          <Card className="relative overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 bg-white/80 backdrop-blur-sm border-2 border-sky-100 hover:border-sky-300">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-sky-400 to-blue-500 rounded-bl-full opacity-10"></div>
+            <CardHeader className="relative">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="p-3 bg-gradient-to-br from-sky-500 to-blue-600 rounded-xl shadow-lg">
+                    <ThermometerSun className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-2xl font-bold text-gray-800">Sistema de Temperatura</CardTitle>
+                    <Badge variant="secondary" className="mt-2 bg-sky-100 text-sky-700 hover:bg-sky-200">
+                      <ThermometerSun className="w-4 h-4 mr-1" />
+                      Adapter Pattern
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardDescription className="px-6 text-gray-600 text-base leading-relaxed">
+              Integración de sensores en °C y °F unificados mediante un Adapter que normaliza todas las lecturas a grados Celsius.
+            </CardDescription>
+            <CardContent className="space-y-6 pt-4">
+              <div className="space-y-3">
+                <h4 className="font-semibold text-gray-800 flex items-center">
+                  <CheckCircle className="w-4 h-4 mr-2 text-green-500" />
+                  Características:
+                </h4>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <div className="flex items-center bg-sky-50 p-2 rounded-lg">
+                    <CheckCircle className="w-4 h-4 text-sky-500 mr-2" />
+                    Conversión automática de °F a °C
+                  </div>
+                  <div className="flex items-center bg-sky-50 p-2 rounded-lg">
+                    <CheckCircle className="w-4 h-4 text-sky-500 mr-2" />
+                    Sincronización con bloques persistidos en Prisma
+                  </div>
+                  <div className="flex items-center bg-sky-50 p-2 rounded-lg">
+                    <CheckCircle className="w-4 h-4 text-sky-500 mr-2" />
+                    Registro manual de lecturas
+                  </div>
+                </div>
+              </div>
+
+              <Button asChild className="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                <Link to="/temperaturas" className="flex items-center justify-center">
+                  Gestionar temperatura
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Technology Stack */}
@@ -225,6 +346,8 @@ export function HomePage() {
                 <div className="text-sm text-purple-600 space-y-1">
                   <div>Builder</div>
                   <div>Factory</div>
+                  <div>Composite</div>
+                  <div>Adapter</div>
                   <div>Repository</div>
                   <div>SOLID</div>
                 </div>

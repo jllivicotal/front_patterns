@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Car, Package, Home, Sparkles } from 'lucide-react';
+import { Car, Package, Home, Sparkles, FolderTree, ThermometerSun } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -58,41 +58,41 @@ export function Layout({ children }: LayoutProps) {
                   Inicio
                 </Link>
               </Button>
-              
+
               <Button
                 asChild
-                variant={isActive('/vehiculos') ? 'default' : 'ghost'}
+                variant={isActive('/filesystem') ? 'default' : 'ghost'}
                 size="sm"
                 className={`hover-lift transition-all duration-300 ${
-                  isActive('/vehiculos') 
-                    ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg animate-glow' 
-                    : 'hover:bg-blue-50 hover:text-blue-700'
+                  isActive('/filesystem')
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg animate-glow'
+                    : 'hover:bg-amber-50 hover:text-amber-700'
                 }`}
               >
-                <Link to="/vehiculos" className="flex items-center">
-                  <Car className="w-4 h-4 mr-2" />
-                  Vehículos
-                  <Badge variant="outline" className="ml-2 text-xs bg-blue-50 text-blue-700 border-blue-200">
-                    Builder
+                <Link to="/filesystem" className="flex items-center">
+                  <FolderTree className="w-4 h-4 mr-2" />
+                  Sistema de Archivos
+                  <Badge variant="outline" className="ml-2 text-xs bg-amber-50 text-amber-700 border-amber-200">
+                    Composite
                   </Badge>
                 </Link>
               </Button>
-              
+
               <Button
                 asChild
-                variant={isActive('/activos') ? 'default' : 'ghost'}
+                variant={isActive('/temperaturas') ? 'default' : 'ghost'}
                 size="sm"
                 className={`hover-lift transition-all duration-300 ${
-                  isActive('/activos') 
-                    ? 'bg-gradient-to-r from-purple-500 to-purple-600 text-white shadow-lg animate-glow' 
-                    : 'hover:bg-purple-50 hover:text-purple-700'
+                  isActive('/temperaturas')
+                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg animate-glow'
+                    : 'hover:bg-sky-50 hover:text-sky-700'
                 }`}
               >
-                <Link to="/activos" className="flex items-center">
-                  <Package className="w-4 h-4 mr-2" />
-                  Activos Fijos
-                  <Badge variant="outline" className="ml-2 text-xs bg-purple-50 text-purple-700 border-purple-200">
-                    Factory
+                <Link to="/temperaturas" className="flex items-center">
+                  <ThermometerSun className="w-4 h-4 mr-2" />
+                  Sistema de Temperatura
+                  <Badge variant="outline" className="ml-2 text-xs bg-sky-50 text-sky-700 border-sky-200">
+                    Adapter
                   </Badge>
                 </Link>
               </Button>
@@ -116,6 +116,7 @@ export function Layout({ children }: LayoutProps) {
             <div className="flex items-center space-x-4 text-sm text-gray-500">
               <Badge variant="outline" className="hover-lift">Builder Pattern</Badge>
               <Badge variant="outline" className="hover-lift">Factory Pattern</Badge>
+              <Badge variant="outline" className="hover-lift">Adapter Pattern</Badge>
               <Badge variant="outline" className="hover-lift">Prisma ORM</Badge>
             </div>
           </div>

@@ -128,3 +128,85 @@ export interface ApiResponse<T> {
   error?: string;
   message?: string;
 }
+
+// Tipos para el patrón Composite - Sistema de Archivos
+export const FileSystemItemKind = {
+  FILE: 'file',
+  FOLDER: 'folder',
+} as const;
+
+export type FileSystemItemKind = typeof FileSystemItemKind[keyof typeof FileSystemItemKind];
+
+export const FileType = {
+  PDF: 'PDF',
+  DOCX: 'DOCX',
+  XLSX: 'XLSX',
+} as const;
+
+export type FileType = typeof FileType[keyof typeof FileType];
+
+export interface FileSystemNode {
+  name: string;
+  type: FileSystemItemKind;
+  size: number;
+  fileType?: FileType;
+  children?: FileSystemNode[];
+  path: string;
+}
+
+export interface FileSystemStatistics {
+  totalSize: number;
+  totalFiles: number;
+  totalFolders: number;
+  structure: string;
+}
+
+// Tipos para el patrón Adapter - Sistema de Temperatura
+export const MeasurementUnit = {
+  CELSIUS: 'CELSIUS',
+  FAHRENHEIT: 'FAHRENHEIT',
+} as const;
+
+export type MeasurementUnit = typeof MeasurementUnit[keyof typeof MeasurementUnit];
+
+export interface Bloque {
+  id: number;
+  nombre: string;
+  tipoMedicion: MeasurementUnit;
+  temperatura: number;
+  fechaRegistro: string;
+}
+
+export interface CreateBloquePayload {
+  nombre: string;
+  tipoMedicion: MeasurementUnit;
+  temperatura: number;
+}
+
+export interface UpdateBloquePayload {
+  nombre?: string;
+  tipoMedicion?: MeasurementUnit;
+  temperatura?: number;
+}
+
+export interface TemperatureReading {
+  blockId: string;
+  valueC: number;
+  timestamp: string;
+  originalValue: number;
+  originalUnit: MeasurementUnit;
+  blockDbId?: number;
+}
+
+export interface TemperatureSystemStats {
+  totalBloques: number;
+  promedioCelsius: number;
+  bloquesCelsius: number;
+  bloquesFahrenheit: number;
+}
+
+export interface AvailableTemperatureBlock {
+  id: number;
+  name: string;
+  tipoMedicion: MeasurementUnit;
+}

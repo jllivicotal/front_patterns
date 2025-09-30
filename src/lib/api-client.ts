@@ -6,10 +6,18 @@ import type {
   ActualizarVehiculoDto,
   ActivoFijo,
   CrearActivoDto,
-  ActualizarActivoDto
+  ActualizarActivoDto,
+  FileSystemNode,
+  FileSystemStatistics,
+  FileType,
+  Bloque,
+  CreateBloquePayload,
+  UpdateBloquePayload,
+  TemperatureReading,
+  AvailableTemperatureBlock,
 } from '@/types';
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || 'http://localhost:3000/api';
+const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL ?? 'http://localhost:3000/api';
 
 class ApiClient {
   private client: AxiosInstance;
@@ -89,6 +97,74 @@ class ApiClient {
 
   async deleteActivo(codigo: number): Promise<void> {
     await this.client.delete(`/activos/${codigo}`);
+  }
+
+  // ===== FILESYSTEM (Composite) API =====
+  async getFileSystem(): Promise<FileSystemNode> {
+    const response = await this.client.get<FileSystemNode>('/filesystem');
+    return response.data;
+  }
+
+  async getFileSystemStatistics(): Promise<FileSystemStatistics> {
+    const response = await this.client.get<FileSystemStatistics>('/filesystem/statistics');
+    return response.data;
+  }
+
+  async getFileSystemStructure(): Promise<string> {
+    const response = await this.client.get<{ structure: string }>('/filesystem/structure');
+    return response.data.structure;
+  }
+
+  async createCompositeFolder(payload: { name: string }): Promise<void> {
+    await this.client.post('/filesystem/folders', payload);
+  }
+
+  async createCompositeFile(payload: { name: string; size: number; type: FileType }): Promise<void> {
+    await this.client.post('/filesystem/files', payload);
+  }
+
+  async deleteCompositeItem(path: string): Promise<void> {
+    await this.client.delete(`/filesystem/item/${path}`);
+  }
+
+  // ===== TEMPERATURE SYSTEM (Adapter) API =====
+  async getTemperatureReadings(): Promise<TemperatureReading[]> {
+    const response = await this.client.get<TemperatureReading[]>('/temperatures');
+    return response.data;
+  }
+
+  async getTemperatureReading(blockId: string): Promise<TemperatureReading> {
+    const response = await this.client.get<TemperatureReading>(`/temperatures/${blockId}`);
+    return response.data;
+  }
+
+  async getTemperatureBlocks(): Promise<AvailableTemperatureBlock[]> {
+    const response = await this.client.get<{ blocks: AvailableTemperatureBlock[] }>('/temperatures/blocks/available');
+    return response.data.blocks;
+  }
+
+  async getBloques(): Promise<Bloque[]> {
+    const response = await this.client.get<Bloque[]>('/bloques');
+    return response.data;
+  }
+
+  async getBloque(id: number): Promise<Bloque> {
+    const response = await this.client.get<Bloque>(`/bloques/${id}`);
+    return response.data;
+  }
+
+  async createBloque(payload: CreateBloquePayload): Promise<Bloque> {
+    const response = await this.client.post<Bloque>('/bloques', payload);
+    return response.data;
+  }
+
+  async updateBloque(id: number, payload: UpdateBloquePayload): Promise<Bloque> {
+    const response = await this.client.patch<Bloque>(`/bloques/${id}`, payload);
+    return response.data;
+  }
+
+  async deleteBloque(id: number): Promise<void> {
+    await this.client.delete(`/bloques/${id}`);
   }
 }
 

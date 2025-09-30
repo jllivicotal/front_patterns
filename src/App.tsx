@@ -8,8 +8,10 @@ import { ActivosPage } from '@/pages/ActivosPage';
 import { NuevoActivoPage } from '@/pages/NuevoActivoPage';
 import { ActivoEditPage } from '@/pages/ActivoEditPage';
 import { ActivoDetailPage } from '@/pages/ActivoDetailPage';
+import { FileSystemPage } from '@/pages/FileSystemPage';
 import { Toaster } from '@/components/ui/sonner';
 import { HomePage } from './pages/HomePage';
+import { TemperatureSystemPage } from '@/pages/TemperatureSystemPage';
 
 function App() {
   return (
@@ -29,6 +31,12 @@ function App() {
           <Route path="/activos/nuevo" element={<NuevoActivoPage />} />
           <Route path="/activos/:codigo" element={<ActivoDetailPage />} />
           <Route path="/activos/:codigo/editar" element={<ActivoEditPage />} />
+
+          {/* Ruta del patrón Composite */}
+          <Route path="/filesystem" element={<FileSystemPage />} />
+
+          {/* Ruta del patrón Adapter */}
+          <Route path="/temperaturas" element={<TemperatureSystemPage />} />
           
           {/* Ruta 404 */}
           <Route path="*" element={<div className="text-center py-8"><h1 className="text-2xl font-bold">Página no encontrada</h1></div>} />
