@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Car, Package, Home, Sparkles, FolderTree, ThermometerSun } from 'lucide-react';
+import { Home, Sparkles, FolderTree, ThermometerSun } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
