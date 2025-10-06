@@ -12,6 +12,8 @@ import { FileSystemPage } from '@/pages/FileSystemPage';
 import { Toaster } from '@/components/ui/sonner';
 import { HomePage } from './pages/HomePage';
 import { TemperatureSystemPage } from '@/pages/TemperatureSystemPage';
+import { MementoPage } from './pages/MementoPage';
+import CommandPage from './pages/CommandPage';
 
 function App() {
   return (
@@ -37,6 +39,12 @@ function App() {
 
           {/* Ruta del patrón Adapter */}
           <Route path="/temperaturas" element={<TemperatureSystemPage />} />
+
+          {/* Ruta del patrón Memento */}
+          <Route path="/memento" element={<MementoPage />} />
+
+          {/* Ruta del patrón Command */}
+          <Route path="/command" element={<CommandPage />} />
           
           {/* Ruta 404 */}
           <Route path="*" element={<div className="text-center py-8"><h1 className="text-2xl font-bold">Página no encontrada</h1></div>} />

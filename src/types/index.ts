@@ -210,3 +210,121 @@ export interface AvailableTemperatureBlock {
   name: string;
   tipoMedicion: MeasurementUnit;
 }
+
+// Tipos para el patrón Memento - Sistema de Solicitudes de Certificado
+export interface DatosAlumno {
+  nombre: string;
+  apellido: string;
+  matricula: string;
+  carrera: string;
+  email: string;
+}
+
+export interface Adjunto {
+  nombre: string;
+  tipo: string;
+  url: string;
+  tamanio: number;
+}
+
+export interface SolicitudCertificado {
+  datosAlumno: DatosAlumno;
+  tipoCertificado: string;
+  observaciones: string;
+  adjuntos: Adjunto[];
+  estado: 'borrador' | 'generado' | 'firmado';
+  fechaCreacion: string;
+  fechaModificacion: string;
+}
+
+export interface SnapshotMemento {
+  id: number;
+  etiqueta: string;
+  timestamp: string;
+  estado: SolicitudCertificado;
+}
+
+export interface EstadoMementoResponse {
+  solicitud: SolicitudCertificado | null;
+  puedeDeshacer: boolean;
+  puedeRehacer: boolean;
+  historial: {
+    actual: number;
+    total: number;
+    capacidadMaxima: number;
+  };
+}
+
+export interface HistorialMementoResponse {
+  snapshots: SnapshotMemento[];
+  capacidadMaxima: number;
+  posicionActual: number;
+}
+
+export interface CreateSolicitudPayload {
+  datosAlumno: DatosAlumno;
+  tipoCertificado: string;
+  observaciones?: string;
+  adjuntos?: Adjunto[];
+}
+
+export interface UpdateSolicitudPayload {
+  tipoCertificado?: string;
+  observaciones?: string;
+}
+
+export interface CreateAdjuntoPayload {
+  nombre: string;
+  tipo: string;
+  url: string;
+  tamanio: number;
+}
+
+// Tipos para el patrón Command - Editor de Texto
+export interface CommandResponse {
+  mensaje: string;
+  texto: string;
+  longitud: number;
+}
+
+export interface InfoHistorialCommand {
+  totalComandos: number;
+  puedeDeshacer: boolean;
+  puedeRehacer: boolean;
+  grabandoMacro: boolean;
+  nombreMacroActual?: string;
+  macrosDisponibles: number;
+}
+
+export interface LogOperacion {
+  operacion: string;
+  timestamp: string;
+  detalles: string;
+}
+
+export interface MacroInfo {
+  nombre: string;
+  comandos: number;
+  fechaCreacion: string;
+}
+
+// DTOs para operaciones Command
+export interface InsertarTextoDto {
+  pos: number;
+  texto: string;
+}
+
+export interface BorrarRangoDto {
+  desde: number;
+  hasta: number;
+}
+
+export interface ReemplazarDto {
+  desde: number;
+  len: number;
+  nuevo: string;
+}
+
+export interface MacroDto {
+  nombre: string;
+}

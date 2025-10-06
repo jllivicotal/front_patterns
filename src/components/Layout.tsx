@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Home, Sparkles, FolderTree, ThermometerSun } from 'lucide-react';
+import { Home, Sparkles, FolderTree, ThermometerSun, FileText, Terminal } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -61,38 +61,38 @@ export function Layout({ children }: LayoutProps) {
 
               <Button
                 asChild
-                variant={isActive('/filesystem') ? 'default' : 'ghost'}
+                variant={isActive('/memento') ? 'default' : 'ghost'}
                 size="sm"
                 className={`hover-lift transition-all duration-300 ${
-                  isActive('/filesystem')
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg animate-glow'
-                    : 'hover:bg-amber-50 hover:text-amber-700'
+                  isActive('/memento')
+                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg animate-glow'
+                    : 'hover:bg-purple-50 hover:text-purple-700'
                 }`}
               >
-                <Link to="/filesystem" className="flex items-center">
-                  <FolderTree className="w-4 h-4 mr-2" />
-                  Sistema de Archivos
-                  <Badge variant="outline" className="ml-2 text-xs bg-amber-50 text-amber-700 border-amber-200">
-                    Composite
+                <Link to="/memento" className="flex items-center">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Certificados
+                  <Badge variant="outline" className="ml-2 text-xs bg-purple-50 text-purple-700 border-purple-200">
+                    Memento
                   </Badge>
                 </Link>
               </Button>
 
               <Button
                 asChild
-                variant={isActive('/temperaturas') ? 'default' : 'ghost'}
+                variant={isActive('/command') ? 'default' : 'ghost'}
                 size="sm"
                 className={`hover-lift transition-all duration-300 ${
-                  isActive('/temperaturas')
-                    ? 'bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg animate-glow'
-                    : 'hover:bg-sky-50 hover:text-sky-700'
+                  isActive('/command')
+                    ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg animate-glow'
+                    : 'hover:bg-green-50 hover:text-green-700'
                 }`}
               >
-                <Link to="/temperaturas" className="flex items-center">
-                  <ThermometerSun className="w-4 h-4 mr-2" />
-                  Sistema de Temperatura
-                  <Badge variant="outline" className="ml-2 text-xs bg-sky-50 text-sky-700 border-sky-200">
-                    Adapter
+                <Link to="/command" className="flex items-center">
+                  <Terminal className="w-4 h-4 mr-2" />
+                  Editor de Texto
+                  <Badge variant="outline" className="ml-2 text-xs bg-green-50 text-green-700 border-green-200">
+                    Command
                   </Badge>
                 </Link>
               </Button>
@@ -114,9 +114,10 @@ export function Layout({ children }: LayoutProps) {
               © 2025 Design Patterns System. Implementación con React + NestJS + TypeScript.
             </div>
             <div className="flex items-center space-x-4 text-sm text-gray-500">
-              <Badge variant="outline" className="hover-lift">Builder Pattern</Badge>
-              <Badge variant="outline" className="hover-lift">Factory Pattern</Badge>
+              <Badge variant="outline" className="hover-lift">Composite Pattern</Badge>
               <Badge variant="outline" className="hover-lift">Adapter Pattern</Badge>
+              <Badge variant="outline" className="hover-lift">Memento Pattern</Badge>
+              <Badge variant="outline" className="hover-lift">Command Pattern</Badge>
               <Badge variant="outline" className="hover-lift">Prisma ORM</Badge>
             </div>
           </div>

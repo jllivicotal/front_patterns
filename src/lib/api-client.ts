@@ -15,6 +15,11 @@ import type {
   UpdateBloquePayload,
   TemperatureReading,
   AvailableTemperatureBlock,
+  EstadoMementoResponse,
+  HistorialMementoResponse,
+  CreateSolicitudPayload,
+  UpdateSolicitudPayload,
+  CreateAdjuntoPayload,
 } from '@/types';
 
 const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL ?? 'http://localhost:3000/api';
@@ -165,6 +170,152 @@ class ApiClient {
 
   async deleteBloque(id: number): Promise<void> {
     await this.client.delete(`/bloques/${id}`);
+  }
+
+  // ===== MEMENTO - SOLICITUDES DE CERTIFICADO API =====
+  async getMementoEstado(): Promise<EstadoMementoResponse> {
+    const response = await this.client.get<EstadoMementoResponse>('/memento/estado');
+    return response.data;
+  }
+
+  async crearSolicitud(payload: CreateSolicitudPayload): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/solicitud', payload);
+    return response.data;
+  }
+
+  async actualizarSolicitud(payload: UpdateSolicitudPayload): Promise<EstadoMementoResponse> {
+    const response = await this.client.put<EstadoMementoResponse>('/memento/solicitud', payload);
+    return response.data;
+  }
+
+  async agregarAdjunto(payload: CreateAdjuntoPayload): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/adjunto', payload);
+    return response.data;
+  }
+
+  async generarCertificado(): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/generar');
+    return response.data;
+  }
+
+  async firmarCertificado(): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/firmar');
+    return response.data;
+  }
+
+  async mementoUndo(): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/undo');
+    return response.data;
+  }
+
+  async mementoRedo(): Promise<EstadoMementoResponse> {
+    const response = await this.client.post<EstadoMementoResponse>('/memento/redo');
+    return response.data;
+  }
+
+  async getMementoHistorial(): Promise<HistorialMementoResponse> {
+    const response = await this.client.get<HistorialMementoResponse>('/memento/historial');
+    return response.data;
+  }
+
+  async limpiarMementoHistorial(): Promise<void> {
+    await this.client.post('/memento/historial/limpiar');
+  }
+
+  async crearSnapshot(etiqueta: string): Promise<any> {
+    const response = await this.client.post('/memento/snapshot', { etiqueta });
+    return response.data;
+  }
+
+  // ===== COMMAND - EDITOR DE TEXTO API =====
+  async insertarTexto(payload: { pos: number; texto: string }): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/insertar', payload);
+    return response.data;
+  }
+
+  async borrarRango(payload: { desde: number; hasta: number }): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/borrar', payload);
+    return response.data;
+  }
+
+  async reemplazarTexto(payload: { desde: number; len: number; nuevo: string }): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/reemplazar', payload);
+    return response.data;
+  }
+
+  async commandUndo(): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/undo');
+    return response.data;
+  }
+
+  async commandRedo(): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/redo');
+    return response.data;
+  }
+
+  async getTextoDocumento(): Promise<{ texto: string; longitud: number }> {
+    const response = await this.client.get('/command/texto');
+    return response.data;
+  }
+
+  async getCommandInfo(): Promise<any> {
+    const response = await this.client.get('/command/info');
+    return response.data;
+  }
+
+  async getCommandLog(): Promise<{ log: any[] }> {
+    const response = await this.client.get('/command/log');
+    return response.data;
+  }
+
+  async grabarMacro(nombre: string): Promise<{ mensaje: string; info: any }> {
+    const response = await this.client.post('/command/macro/grabar', { nombre });
+    return response.data;
+  }
+
+  async finalizarMacro(): Promise<{ mensaje: string; info: any }> {
+    const response = await this.client.post('/command/macro/finalizar');
+    return response.data;
+  }
+
+  async cancelarMacro(): Promise<{ mensaje: string; info: any }> {
+    const response = await this.client.post('/command/macro/cancelar');
+    return response.data;
+  }
+
+  async ejecutarMacro(nombre: string): Promise<{ mensaje: string; texto: string; longitud: number }> {
+    const response = await this.client.post('/command/macro/ejecutar', { nombre });
+    return response.data;
+  }
+
+  async listarMacros(): Promise<{ macros: any[] }> {
+    const response = await this.client.get('/command/macro');
+    return response.data;
+  }
+
+  async eliminarMacro(nombre: string): Promise<{ mensaje: string; macros: any[] }> {
+    const response = await this.client.delete(`/command/macro/${nombre}`);
+    return response.data;
+  }
+
+  async limpiarHistorialCommand(): Promise<{ mensaje: string; info: any }> {
+    const response = await this.client.post('/command/historial/limpiar');
+    return response.data;
+  }
+
+  async limpiarLogCommand(): Promise<{ mensaje: string }> {
+    const response = await this.client.post('/command/log/limpiar');
+    return response.data;
+  }
+
+  async limpiarDocumento(): Promise<{ mensaje: string; caracteresEliminados: number; texto: string }> {
+    const response = await this.client.post('/command/documento/limpiar');
+    return response.data;
+  }
+
+  async reiniciarEditor(): Promise<{ mensaje: string }> {
+    const response = await this.client.post('/command/reiniciar');
+    return response.data;
   }
 }
 
